@@ -10,7 +10,6 @@ simple
 
 ```
 chmod +x /path/to/fetch.zsh
-
 ```
 
 
@@ -18,7 +17,6 @@ chmod +x /path/to/fetch.zsh
 
 ```
 ./fetch.zsh
-
 ```
 
 
