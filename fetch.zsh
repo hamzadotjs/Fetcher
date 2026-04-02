@@ -24,7 +24,7 @@ hours=$(( (diff % 86400) / 3600 ))
 os_age="${years}y ${days}d ${hours}h"
 
 # cool wms
-cool_wms=("bspwm" "niri" "river" "hyprland" "dwm" "awesome" "xmonad")
+cool_wms=("bspwm" "niri" "river" "hyprland" "dwm" "awesome" "xmonad" "mangowc" "mango")
 wm_lower="${wm:l}"
 btw_wm=""
 for w in $cool_wms; do
