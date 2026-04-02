@@ -22,3 +22,6 @@ python fetcher.py
 
 # NOTE:
 This project is only works on Linux
+
+## Screenshots:
+<img width="805" height="231" alt="Screenshot from 2026-04-02 18-07-29" src="https://github.com/user-attachments/assets/75056ebf-df9e-4651-96c2-194df85a3ebe" />
