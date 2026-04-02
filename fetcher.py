@@ -53,24 +53,9 @@ print(f"\033[{len(logo_lines)}A", end="")
 os_name = subprocess.check_output("grep '^NAME' /etc/os-release", shell=True).decode().strip().split('=')[1].strip('"')
 print(f"\033[25G {blue}OS:{reset} {os_name}") 
 
-def get_ram():
-    out = subprocess.check_output("free -h | awk 'NR==2 {print $2, $3}'", shell=True).decode().strip()
-    total, used, = out.split()
-    return total, used
-
-total, used = get_ram()
-print(f"\033[25G {purple}RAM:{reset} {used} / {total}")
 
 pkg_count = subprocess.check_output("pacman -Q | wc -l", shell=True).decode().strip()
 print(f"\033[25G {cyan}Packages:{reset} {pkg_count}")
-
-cpu = subprocess.check_output("lscpu | grep 'Model name'", shell=True).decode().strip().split(':')[1].strip()
-print(f"\033[25G {green}CPU:{reset} {cpu}")
-
-
-uptime = subprocess.check_output("uptime -p", shell=True).decode().strip()
-
-print(f"\033[25G {blue}Uptime:{reset} {uptime}")
 
 shell = os.path.basename(subprocess.check_output("echo $SHELL", shell=True).decode().strip())
 print(f"\033[25G {blue}Shell:{reset} {shell}")
@@ -85,3 +70,22 @@ wm = (
 )
 
 print(f"\033[25G {purple}WM:{reset} {wm}")
+
+cpu = subprocess.check_output("lscpu | grep 'Model name'", shell=True).decode().strip().split(':')[1].strip()
+print(f"\033[25G {green}CPU:{reset} {cpu}")
+
+
+
+def get_ram():
+    out = subprocess.check_output("free -h | awk 'NR==2 {print $2, $3}'", shell=True).decode().strip()
+    total, used, = out.split()
+    return total, used
+
+total, used = get_ram()
+print(f"\033[25G {purple}RAM:{reset} {used} / {total}")
+
+
+uptime = subprocess.check_output("uptime -p", shell=True).decode().strip()
+
+print(f"\033[25G {blue}Uptime:{reset} {uptime}")
+
