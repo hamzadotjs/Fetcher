@@ -6,18 +6,19 @@ A simple, writte in zsh , neofetch alternative
 simple 
 1. clone the repo(ig u know how to do that)
 
-2. make it executable
-
+### 2. Install python
+#### for example, on Arch btw
 ```
-chmod +x /path/to/fetch.zsh
-```
-
-
-3 . run it
-
-```
-./fetch.zsh
+sudo pacman -S python
 ```
 
 
-# NOTE:this app requires zsh
+### 3 . run it
+
+```
+python fetcher.py
+```
+
+
+# NOTE:
+This project is only works on Linux

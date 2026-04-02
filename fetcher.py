@@ -10,8 +10,11 @@ green   = "\033[38;2;158;206;106m"  # #9ece6a
 reset   = "\033[0m"
 
 
-
 os_name = platform.system()
+
+if os_name != "Linux":
+    print("this fetcher only works on linux, sorry")
+    exit()
 
 tux = r"""
     .--.
@@ -23,51 +26,29 @@ tux = r"""
 \___)=(___/
 """
 
-win = """
-█████╗
-██╔══╝ 
-█████╗ 
-╚════╝ 
+Arch = r"""
+    /\
+   /  \
+  /\   \
+ /  __  \
+/__/  \__\
+
 """
 
-mac = r'''
-                       .8 
-                     .888
-                   .8888'
-                  .8888'
-                  888'
-                  8'
-     .88888888888. .88888888888.
-  .8888888888888888888888888888888.
-.8888888888888888888888888888888888.
-.&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
-`%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
- `00000000000000000000000000000000000'
-  `000000000000000000000000000000000'
-   `0000000000000000000000000000000'
-     `###########################'
-      `#######################'
-         `#########''########'
-           `""""""'  `"""""'
-'''
-if os_name == "Linux":
-    logo = tux
-elif os_name == "Windows":
-    logo = win
-elif os_name == "Darwin":
-    logo = mac
+with open('/etc/os-release') as f:
+    content = f.read()
 
-logo_lines = logo.strip().splitlines()
+if 'ID=arch' in content or 'ID_LIKE=arch' in content:
+    logo = Arch
+else:
+    logo = tux
+
+
+logo_lines_padded = [line.ljust(12) for line in logo.splitlines()]
+logo = '\n'.join(logo_lines_padded)
+logo_lines = logo.splitlines()  # Still 5 lines
 print(logo)
 print(f"\033[{len(logo_lines)}A", end="")
-
 
 os_name = subprocess.check_output("grep '^NAME' /etc/os-release", shell=True).decode().strip().split('=')[1].strip('"')
 print(f"\033[25G {blue}OS:{reset} {os_name}") 
