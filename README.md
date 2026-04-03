@@ -44,6 +44,23 @@ ln -sf ~/Fetcher/dist/fetcher/fetcher ~/.local/bin/
 ```
 ### 7. enjoy
 
+
+
+## uninstallation
+
+
+### 1. remove the folder 
+```
+rm -rf ~/Fetcher
+```
+
+### 2.remove the symlinc
+```
+rm -rf ~/.local/bin/fetcher
+```
+
+### 3. you removed it
+
 # NOTE:
 This project is only works on Linux
 
