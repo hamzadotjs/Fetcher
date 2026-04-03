@@ -1,10 +1,13 @@
 # Fetcher
-A simple, writte in zsh , neofetch alternative
+A simple neofetch alternative, written in python
 
 ## How to use
 
-simple 
-1. clone the repo(ig u know how to do that)
+*simple* 
+### 1. clone the repo
+```
+git clone https://github.com/hamzadotjs/Fetcher.git
+```
 
 ### 2. Install python
 #### for example, on Arch btw
@@ -12,13 +15,34 @@ simple
 sudo pacman -S python
 ```
 
-
-### 3 . run it
+### 3. Install pipx
 
 ```
-python fetcher.py
+sudo pacman -S python-pipx
 ```
 
+### 3 . install pyinstaller
+
+```
+pipx install pyinstaller
+```
+
+### 4. Go into the cloned project
+```
+cd ~/Fetcher
+```
+
+### 5.Build it
+```
+pyinstaller fetcher.py
+```
+
+### 6 . let the system make it a command
+
+```
+ln -sf ~/Fetcher/dist/fetcher/fetcher ~/.local/bin/
+```
+### 7. enjoy
 
 # NOTE:
 This project is only works on Linux
