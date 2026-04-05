@@ -57,9 +57,12 @@ print(f"\033[25G {blue}OS:{reset} {os_name}")
 pkg_count = subprocess.check_output("pacman -Q | wc -l", shell=True).decode().strip()
 print(f"\033[25G {cyan}Packages:{reset} {pkg_count}")
 
+
 shell = os.path.basename(subprocess.check_output("echo $SHELL", shell=True).decode().strip())
 print(f"\033[25G {blue}Shell:{reset} {shell}")
 
+term = os.path.basename(subprocess.check_output("echo $TERM", shell=True).decode().strip())
+print(f"\033[25G {purple}Terminal:{reset} {term")
 
 wm = (
     os.environ.get('XDG_CURRENT_DESKTOP') or
