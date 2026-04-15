@@ -1,6 +1,11 @@
 import subprocess
 import os
 import platform
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--ascii', help='path to custom ascii file')
+args = parser.parse_args()
 
 
 blue    = "\033[38;2;122;162;247m"  # #7aa2f7
@@ -35,14 +40,13 @@ Arch = r"""
 
 """
 
-with open('/etc/os-release') as f:
-    content = f.read()
-
-if 'ID=arch' in content or 'ID_LIKE=arch' in content:
+if args.ascii:
+    with open(args.ascii) as f:
+        logo = f.read()
+elif 'ID=arch' in content or 'ID_LIKE=arch' in content:
     logo = Arch
 else:
     logo = tux
-
 
 logo_lines_padded = [line.ljust(12) for line in logo.splitlines()]
 logo = '\n'.join(logo_lines_padded)
@@ -91,4 +95,5 @@ print(f"\033[25G {purple}RAM:{reset} {used} / {total}")
 uptime = subprocess.check_output("uptime -p", shell=True).decode().strip()
 
 print(f"\033[25G {blue}Uptime:{reset} {uptime}")
+
 
