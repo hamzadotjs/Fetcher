@@ -72,7 +72,7 @@ wm = (
     'unknown'
 )
 
-print(f"\033[25G {purple}WM:{reset} {wm}")
+print(f"\033[25G {blue}WM:{reset} {wm}")
 
 cpu = subprocess.check_output("lscpu | grep 'Model name'", shell=True).decode().strip().split(':')[1].strip()
 print(f"\033[25G {green}CPU:{reset} {cpu}")
