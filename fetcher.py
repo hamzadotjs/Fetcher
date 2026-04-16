@@ -3,6 +3,9 @@ import os
 import platform
 import argparse
 
+with open('/etc/os-release') as f:
+    content = f.read()
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--ascii', help='path to custom ascii file')
 args = parser.parse_args()
