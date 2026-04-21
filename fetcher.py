@@ -2,6 +2,11 @@ import subprocess
 import os
 import platform
 import argparse
+import re
+
+##mesument
+def visible_width(s):
+    return len(re.sub(r'\033\[[0-9;]*m', '', s))
 
 with open('/etc/os-release') as f:
     content = f.read()
@@ -45,9 +50,9 @@ elif 'ID=arch' in content or 'ID_LIKE=arch' in content:
     logo = Arch
 else:
     logo = tux
-
+## logo printing logic
 logo_lines = logo.splitlines()
-max_logo_width = max(len(line) for line in logo_lines) if logo_lines else 0
+max_logo_width = max(visible_width(line) for line in logo_lines) if logo_lines else 0
 offset = max_logo_width + 4
 
 print(logo)
@@ -74,7 +79,7 @@ wm = (
 )
 print(f"\033[{offset}G {blue}WM:{reset} {wm}")
 
-cpu = subprocess.check_output("lscpu | grep 'Model name'", shell=True).decode().strip().split(':')[1].strip()
+cpu = subprocess.check_output("lscpu | grep 'Model name'", shell=True).decode().strip().split('TM)')[1].strip()
 print(f"\033[{offset}G {green}CPU:{reset} {cpu}")
 
 def get_ram():
