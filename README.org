@@ -13,6 +13,7 @@ This script is designed to work on:
 ** 1. Clone the repository
 #+begin_SRC bash
 git clone https://github.com/hamzadotjs/Fetcher.git
+cd Fetcher
 #+END_SRC
 ** 2. Run the Universal Installer
 #+BEGIN_SRC bash
@@ -22,7 +23,7 @@ chmod +x install.sh
 *  Manual Build (Optional)
 #+BEGIN_SRC bash
 pyinstaller --onefile fetcher.py
-ln -sf $(pwd)/dist/fetcher ~/.local/bin/
+ln -sf ~/Fetcher/dist/fetcher ~/.local/bin/
 #+END_SRC
 * Uninstallation
 #+BEGIN_SRC
