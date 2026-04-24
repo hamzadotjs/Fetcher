@@ -1,49 +1,92 @@
-#!/usr/bin/env sh
-
 #!/usr/bin/env bash
 
-# Function to install packages based on the distro
-install_pkg() {
+set -euo pipefail
+
+# --- helpers ---
+log()  { echo -e "\033[1;34m[INFO]\033[0m $*"; }
+ok()   { echo -e "\033[1;32m[OK]\033[0m   $*"; }
+err()  { echo -e "\033[1;31m[ERR]\033[0m  $*" >&2; exit 1; }
+
+# detect package manager once
+detect_pm() {
     if command -v pacman &> /dev/null; then
-        sudo pacman -S --noconfirm "$1"
+        PM="pacman"
     elif command -v apt &> /dev/null; then
-        sudo apt update && sudo apt install -y "$1"
+        PM="apt"
     elif command -v dnf &> /dev/null; then
-        sudo dnf install -y "$1"
+        PM="dnf"
     else
-        echo "❌ Error: Unsupported package manager. Install $1 manually."
-        exit 1
+        err "Unsupported package manager. Install dependencies manually."
     fi
 }
 
-echo "󰚰 Detecting environment..."
+install_pkg() {
+    case "$PM" in
+        pacman) sudo pacman -S --noconfirm --needed "$@" ;;
+        apt)    sudo apt update -y && sudo apt install -y "$@" ;;
+        dnf)    sudo dnf install -y "$@" ;;
+    esac
+}
 
-# 1. Ensure Python and Pip are present
-if ! command -v python3 &> /dev/null; then
-    install_pkg "python3"
+require_cmd() {
+    command -v "$1" &> /dev/null
+}
+
+# --- start ---
+log "Detecting environment..."
+detect_pm
+
+# ensure we're in repo
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+[ -f "fetcher.py" ] || err "fetcher.py not found in $SCRIPT_DIR"
+
+# 1. Python
+if ! require_cmd python3; then
+    log "Installing Python..."
+    install_pkg python3
+else
+    ok "Python already installed"
 fi
 
-# 2. Ensure pipx is present (safest way to install pyinstaller)
-if ! command -v pipx &> /dev/null; then
-    if [[ -f /usr/bin/pacman ]]; then
-        install_pkg "python-pipx"
+# 2. pipx
+if ! require_cmd pipx; then
+    log "Installing pipx..."
+    if [ "$PM" = "pacman" ]; then
+        install_pkg python-pipx
     else
-        install_pkg "pipx"
+        install_pkg pipx
     fi
     pipx ensurepath
+    ok "pipx installed (restart shell later if needed)"
+else
+    ok "pipx already installed"
 fi
 
-# 3. Install PyInstaller via pipx
-echo "󰄲 Setting up build tools..."
+# 3. build deps (best effort)
+if [ "$PM" = "apt" ]; then
+    log "Installing build dependencies..."
+    install_pkg python3-venv build-essential || true
+fi
+
+# 4. pyinstaller
+log "Setting up PyInstaller..."
 pipx install pyinstaller --force
 
-# 4. Build the binary
-echo "󰄲 Compiling Fetcher..."
-~/.local/bin/pyinstaller --onefile fetcher.py
+PYINSTALLER="$HOME/.local/bin/pyinstaller"
+[ -x "$PYINSTALLER" ] || err "PyInstaller not found after install"
 
-# 5. Create local bin and symlink
-mkdir -p ~/.local/bin
-ln -sf "$(pwd)/dist/fetcher" ~/.local/bin/fetcher
+# 5. build
+log "Compiling Fetcher..."
+"$PYINSTALLER" --onefile fetcher.py
 
-echo "󰄬 Setup complete. Restart your terminal or run: source ~/.zshrc"
-echo "🚀 Type 'fetcher' to launch."
+# 6. install binary
+log "Installing binary..."
+mkdir -p "$HOME/.local/bin"
+ln -sf "$SCRIPT_DIR/dist/fetcher" "$HOME/.local/bin/fetcher"
+
+ok "Installation complete!"
+echo
+echo "Run: source ~/.bashrc (or ~/.zshrc)"
+echo "Then: fetcher 🚀"
