@@ -1,5 +1,5 @@
-#+title: README . but I do it
-#+DESCRIPTION: A minimalist, universal system information tool written in Python.
+#+title: Fetcher
+#+DESCRIPTION: A minimalist, universal system information tool written in Python, for Linux.
 #+AUTHOR: hamzadotjs
 
 *  Compatibility
