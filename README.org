@@ -1,0 +1,35 @@
+#+TITLE: Fetcher
+#+AUTHOR: hamzadotjs
+#+DESCRIPTION: A minimalist, universal system information tool written in Python. [cite: 12, 15]
+
+* 🐧 Compatibility
+This script is designed to work on:
+- Arch Linux / CachyOS (via pacman)
+- Debian / Ubuntu / Mint (via apt)
+- Fedora / RHEL (via dnf)
+
+* 🚀 Quick Start
+** 1. Clone the repository
+#+begin_SRC bash
+git clone https://github.com/hamzadotjs/Fetcher.git
+#+END_SRC
+
+** 2. Run the Universal Installer
+#+BEGIN_SRC bash
+chmod +x install.sh
+./install.sh
+#+END_SRC
+* 🛠️ Manual Build (Optional)
+#+begin_src bash
+pyinstaller --onefile fetcher.py
+ln -sf $(pwd)/dist/fetcher ~/.local/bin/
+#+end_src
+
+* 🗑️ Uninstallation
+#+begin_src bash
+rm -rf ~/Fetcher
+rm ~/.local/bin/fetcher
+#+end_src
+
+* 🖼️ Screenshots
+[[https://github.com/user-attachments/assets/75056ebf-df9e-4651-96c2-194df85a3ebe]]
