@@ -7,7 +7,8 @@ This script is designed to work on:
 - Arch Linux / CachyOS (via pacman)
 - Debian / Ubuntu / Mint (via apt)
 - Fedora / RHEL (via dnf)
-
+- macOS (not tested)
+***** and more coming soon!
 * Quick Start
 ** 1. Clone the repository
 #+begin_SRC bash
