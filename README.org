@@ -31,5 +31,5 @@ rm -rf ~/Fecthcer
 
 
 * Screenshots:
- file:./fetcher-regular.png
  [[file:./fetcher-ascii.png]]
+ [[file:./fetcher-regular.png]]
