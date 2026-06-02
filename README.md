@@ -17,55 +17,44 @@ A simple `neofetch` alternative, written in Python.
 
 ## How to Use
 
-### 1. Clone the repository & enter its directory
-```bash
-git clone [https://github.com/hamzadotjs/Fetcher.git](https://github.com/hamzadotjs/Fetcher.git)
-cd ~/Fetcher
+### 0. Install deps
 
-```
-
-### 2. Install Python and pipx
-
-For example, on **Arch Linux**:
-
+Install Python and pipx (Arch; other distros may vary):
 ```bash
 sudo pacman -S python pipx
-
 ```
 
-### 3. Install PyInstaller
-
-PyInstaller is used to compile the Python script into a standalone executable:
-
+### 1. Clone the repository & enter its directory
 ```bash
-pipx install pyinstaller
-
+git clone https://github.com/hamzadotjs/Fetcher.git
+cd Fetcher
 ```
 
-### 4. Build Fetcher
-
+### 2. Install with pipx
 ```bash
-pyinstaller --onefile main.py
-
+pipx install -e .
 ```
 
-### 5. Add it to your PATH
-
-First, ensure your `~/.local/bin` is included in your system's PATH:
-
-```bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc # or ~/.zshrc if you use Zsh
-
-```
-
-### 6. Symlink Fetcher to your bin directory
-
-```bash
-ln -sf ~/Fetcher/dist/main ~/.local/bin/fetcher
-
-```
-
-### 7. Enjoy!
-
+### 3. Enjoy!
 Simply run `fetcher` in your terminal.
 
+---
+
+## Alternative: Standalone Binary
+
+If you prefer a single executable instead:
+
+### 1. Install PyInstaller
+```bash
+pipx install pyinstaller
+```
+
+### 2. Build Fetcher
+```bash
+pyinstaller --onefile main.py
+```
+
+### 3. Add to PATH
+```bash
+ln -sf ~/Fetcher/dist/main ~/.local/bin/fetcher
+```
