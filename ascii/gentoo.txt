@@ -1,0 +1,7 @@
+{purple}          _-----_
+          (       \
+          \   {white}o{purple}   \
+{blue}          \       )
+          /      _/
+         (      _-
+          \____-{reset}
