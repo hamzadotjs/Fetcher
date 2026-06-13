@@ -134,18 +134,17 @@ def main():
         if not logo:
             logo = load_logo('linux', colors)
 
+    logo = logo.rstrip('\n')
     logo_lines = logo.splitlines()
     max_logo_width = max(visible_width(line) for line in logo_lines) if logo_lines else 0
     offset = max_logo_width + 4
 
+    # Print logo
     print(logo)
-    print(f"\033[{len(logo_lines)}A", end="")
 
+    # Gather info first
     username = subprocess.check_output("whoami", shell=True).decode().strip()
     hostname = subprocess.check_output("uname -n", shell=True).decode().strip()
-
-    print(f"\033[{offset}G{orange}{username}{white}@{green}{hostname}{reset}")
-    print(f"\033[{offset}G====================")
 
     if platform.system() == "Darwin":
         try:
@@ -159,16 +158,10 @@ def main():
             os_name = subprocess.check_output("grep '^NAME' /etc/os-release", shell=True).decode().strip().split('=')[1].replace('"', '')
         except:
             os_name = "Linux"
-    print(f"\033[{offset}G {blue}OS:{reset} {os_name}")
 
     pkg_count = get_pkg_count()
-    print(f"\033[{offset}G {cyan}Packages:{reset} {pkg_count}")
-
     shell = os.path.basename(subprocess.check_output("echo $SHELL", shell=True).decode().strip())
-    print(f"\033[{offset}G {blue}Shell:{reset} {shell}")
-
     term = os.environ.get('TERM', 'unknown')
-    print(f"\033[{offset}G {purple}Terminal:{reset} {term}")
 
     if platform.system() == "Darwin":
         wm = "Aqua"
@@ -189,7 +182,6 @@ def main():
             os.environ.get('DISPLAY') and 'x11' or
             'TTY'
         )
-    print(f"\033[{offset}G {blue}WM:{reset} {wm}")
 
     if platform.system() == "Darwin":
         cpu = "Apple Silicon"
@@ -206,14 +198,13 @@ def main():
             cpu = subprocess.check_output("lscpu | grep 'Model name'", shell=True).decode().strip().split('TM)')[1].strip()
         except:
             cpu = "Unknown"
-    print(f"\033[{offset}G {green}CPU:{reset} {cpu}")
 
     def get_ram():
         if platform.system() == "Darwin":
             try:
                 total_bytes = int(subprocess.check_output("sysctl -n hw.memsize", shell=True).decode().strip())
                 total_gb = total_bytes / (1024**3)
-                
+
                 vm_stat = subprocess.check_output("vm_stat", shell=True).decode()
                 page_size = 4096
                 free_pages = 0
@@ -225,7 +216,7 @@ def main():
                         free_pages = int(line.split(":")[1].strip().replace(".", ""))
                     elif "Pages speculative:" in line:
                         speculative_pages = int(line.split(":")[1].strip().replace(".", ""))
-                        
+
                 unused_bytes = (free_pages + speculative_pages) * page_size
                 used_bytes = total_bytes - unused_bytes
                 used_gb = used_bytes / (1024**3)
@@ -241,7 +232,6 @@ def main():
                 return "Unknown", "Unknown"
 
     total, used = get_ram()
-    print(f"\033[{offset}G {purple}RAM:{reset} {used} / {total}")
 
     if platform.system() == "Darwin":
         try:
@@ -267,12 +257,36 @@ def main():
             uptime = subprocess.check_output("uptime -p", shell=True).decode().strip()
         except:
             uptime = "Unknown"
-    print(f"\033[{offset}G {blue}Uptime:{reset} {uptime}")
 
     age = get_sys_age()
-    print(f"\033[{offset}G {yellow}Age:{reset} {age}")
 
-    print(f"\033[{len(logo_lines)}B", end="")
+    # Build info lines
+    info_lines = [
+        f"{orange}{username}{white}@{green}{hostname}{reset}",
+        "====================",
+        f"{blue}OS:{reset} {os_name}",
+        f"{cyan}Packages:{reset} {pkg_count}",
+        f"{blue}Shell:{reset} {shell}",
+        f"{purple}Terminal:{reset} {term}",
+        f"{blue}WM:{reset} {wm}",
+        f"{green}CPU:{reset} {cpu}",
+        f"{purple}RAM:{reset} {used} / {total}",
+        f"{blue}Uptime:{reset} {uptime}",
+        f"{yellow}Age:{reset} {age}",
+    ]
+
+    # Move cursor up to align with top of logo, then print info beside it
+    print(f"\033[{len(logo_lines)}A", end="")
+
+    for i, line in enumerate(info_lines):
+        print(f"\033[{offset}G {line}")
+
+    # Pad/move down if logo is taller than info block
+    diff_lines = len(logo_lines) - len(info_lines)
+    if diff_lines > 0:
+        print(f"\033[{diff_lines}B", end="")
+
+    print()
 
 
 if __name__ == "__main__":
