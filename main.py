@@ -272,7 +272,7 @@ def main():
     age = get_sys_age()
     print(f"\033[{offset}G {yellow}Age:{reset} {age}")
 
-    print(f"\033[{len(logo_lines)}B")
+    print(f"\033[{len(logo_lines)}B", end="")
 
 
 if __name__ == "__main__":
