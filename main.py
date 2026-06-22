@@ -81,7 +81,7 @@ def main():
     yellow  = "\033[38;2;224;175;104m"
     orange  = "\033[38;2;255;158;100m"
     red     = "\033[38;2;247;118;142m"
-    white  = "\033[37m"
+    white   = "\033[37m"
     reset   = "\033[0m"
 
     if platform.system() not in ["Linux", "Darwin"]:
@@ -126,7 +126,7 @@ def main():
         except:
             pass
     else:
-        logo_keys = ['gentoo', 'arch', 'fedora', 'debian', 'ubuntu', 'macos']
+        logo_keys = ['gentoo', 'arch', 'fedora', 'debian', 'ubuntu', 'macos', 'nixos']
         for key in logo_keys:
             if key in distro_id or key in distro_like:
                 logo = load_logo(key, colors)
@@ -254,9 +254,23 @@ def main():
             uptime = "Unknown"
     else:
         try:
-            uptime = subprocess.check_output("uptime -p", shell=True).decode().strip()
+            # Try procps uptime -p first, silence stderr if it throws an error
+            uptime = subprocess.check_output("uptime -p", shell=True, stderr=subprocess.DEVNULL).decode().strip()
         except:
-            uptime = "Unknown"
+            try:
+                # Coreutils fallback
+                raw_uptime = subprocess.check_output("uptime", shell=True).decode().strip()
+                if 'up' in raw_uptime:
+                    uptime_str = raw_uptime.split('up', 1)[1]
+                    if 'user' in uptime_str:
+                        uptime_str = ','.join(uptime_str.split('user')[0].split(',')[:-1]).strip()
+                    else:
+                        uptime_str = uptime_str.split('load')[0].strip().rstrip(',')
+                    uptime = "up " + uptime_str
+                else:
+                    uptime = "Unknown"
+            except:
+                uptime = "Unknown"
 
     age = get_sys_age()
 
