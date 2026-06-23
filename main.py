@@ -34,7 +34,8 @@ def get_pkg_count():
         ('apt', 'apt list --installed 2>/dev/null | wc -l'),
         ('zypper', 'zypper se --installed-only | wc -l'),
         ('xbps-query', 'xbps-query -l | wc -l'),
-        ('apk', 'apk info | wc -l')
+        ('apk', 'apk info | wc -l'),
+        ('nix-env', 'nix-store -q --references /run/current-system/sw 2>/dev/null | wc -l'),
     ]
 
     for cmd, count_cmd in managers:
