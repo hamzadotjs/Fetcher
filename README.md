@@ -8,12 +8,15 @@ A simple `neofetch` alternative, written in Python.
 2. **Portability:** Lightweight and comes in at less than 20 Megabytes.
 3. **Custom ASCII Art:** Full support for custom ASCII art layouts.
 
+### Regular layout preview
 ![Preview](./preview.png)
 
-### With ASCII Art
+#### With ASCII Art
 ![ASCII Preview](./ascii-preview.png)
 
----
+### Nitch layout preview
+
+[!Preview](./nitch.png)
 
 ## How to Use
 
