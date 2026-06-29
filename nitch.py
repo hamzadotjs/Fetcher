@@ -302,17 +302,17 @@ def main():
      #    print(f"\033[{diff_lines}B", end="")
 
     rows = [
-        ("OS", os_name, blue),
-        ("hname", hostname, green),
-        ("User", username, orange),
-        ("Packages", pkg_count, cyan),
-        ("Shell", shell, blue),
-        ("Terminal", term, purple),
-        ("WM", wm, blue),
-        ("CPU", cpu, green),
-        ("RAM", f"{used} / {total}", purple),
-        ("Uptime", uptime, blue),
-        ("Age", age, yellow),
+        ("󰻀 OS", os_name, blue),
+        (" hname", hostname, green),
+        (" User", username, orange),
+        ("󰏖 Pkgs", pkg_count, cyan),
+        (" Shell", shell, blue),
+        (" Terminal", term, purple),
+        (" WM", wm, blue),
+        ("󰍛 CPU", cpu, green),
+        (" RAM", f"{used} / {total}", purple),
+        (" Uptime", uptime, blue),
+        ("󰃭 Age", age, yellow),
     ]
     pad_x = 4
     label_width = max(len(label) for label, _, _ in rows)
