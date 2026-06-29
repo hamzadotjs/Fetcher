@@ -1,21 +1,8 @@
  {blue}                                        
-                                        
-                      .cxO00Od:.        
-                    ,0WMMMMMMMMWk'      
-                   lWMMXo;'';oXWMWc     
-                  .WMMX.      .XMMW.    
-                  :MMMK        0MMW.    
-                  cMMMK        'dx;     
-                  cMMMK                 
-         .':llll, cMMMXllllc.           
-      .cOWMMMMMMx cMMMMMMMMMx           
-     :XMMMXOdddd; cMMMNddddl.           
-    cWMMK;.       cMMMK                 
-   .NMMX.         cMMMK                 
-   ;MMMK          cMMMK                 
-   .XMMW;        .kMMMc                 
-    ,XMMWx;.   .:0MMMx.                 
-     .xWMMMWXXNMMMMK:                   
-       .ckKWMMWX0o,                     
-        '""""'                                        
+      ______         __                
+   / ____/__  ____/ /___  _________ _
+  / /_  / _ \/ __  / __ \/ ___/ __ `/
+ / __/ /  __/ /_/ / /_/ / /  / /_/ / 
+/_/    \___/\__,_/\____/_/   \__,_/  
+                                     
 {reset}
