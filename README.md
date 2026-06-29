@@ -16,7 +16,7 @@ A simple `neofetch` alternative, written in Python.
 
 ### Nitch layout preview
 
-[!Preview](./nitch.png)
+[!Nitch Preview](./nitch.png)
 
 ## How to Use
 
