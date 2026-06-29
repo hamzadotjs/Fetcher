@@ -1,2 +1,2 @@
 [console_scripts]
-fetcher = main:main
+fetcher = nitch:main
