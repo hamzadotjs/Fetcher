@@ -275,6 +275,11 @@ def main():
 
     age = get_sys_age()
 
+    with open("/sys/class/power_supply/BAT0/capacity") as f:
+        bat = int(f.read().strip()) 
+    with open("/sys/class/power_supply/BAT0/status") as f:
+        status = f.read().strip()
+
     # Build info lines
     info_lines = [
         f"{orange}{username}{white}@{green}{hostname}{reset}",
@@ -288,6 +293,7 @@ def main():
         f"{purple}RAM:{reset} {used} / {total}",
         f"{blue}Uptime:{reset} {uptime}",
         f"{yellow}Age:{reset} {age}",
+        f"{purple}Bat:{reset} {bat}% {red}{status}{reset}",
     ]
 
     # Move cursor up to align with top of logo, then print info beside it
@@ -313,6 +319,7 @@ def main():
         (" RAM", f"{used} / {total}", purple),
         (" Uptime", uptime, blue),
         ("󰃭 Age", age, yellow),
+        ("󰂀 Battery", f"{bat}% {status}", purple)
     ]
     pad_x = 4
     label_width = max(len(label) for label, _, _ in rows)
