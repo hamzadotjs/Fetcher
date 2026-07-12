@@ -120,20 +120,19 @@ def main():
         distro_id = "macos"
 
     logo = None
-    if args.ascii:
-        try:
-            with open(args.ascii) as f:
-                logo = f.read()
-        except:
-            pass
-    else:
-        logo_keys = ['gentoo', 'arch', 'fedora', 'debian', 'ubuntu', 'macos', 'nixos']
-        for key in logo_keys:
-            if key in distro_id or key in distro_like:
-                logo = load_logo(key, colors)
-                break
-        if not logo:
-            logo = load_logo('linux', colors)
+    # if args.ascii:
+    #    try:
+    #        with open(args.ascii) as f:
+    #            logo = f.read()
+    #    except:
+    #        pass
+    logo_keys = ['gentoo', 'arch', 'fedora', 'debian', 'ubuntu', 'macos', 'nixos']
+    for key in logo_keys:
+           if key in distro_id or key in distro_like:
+               logo = load_logo(key, colors)
+               break
+    if not logo:
+           logo = load_logo('linux', colors)
 
     # logo = logo.rstrip('\n')
     # logo_lines = logo.splitlines()
