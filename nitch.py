@@ -70,9 +70,9 @@ def load_logo(logo_name, colors):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--ascii', help='path to custom ascii file')
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('--ascii', help='path to custom ascii file')
+    # args = parser.parse_args()
 
     blue    = "\033[38;2;122;162;247m"
     purple  = "\033[38;2;187;154;247m"
