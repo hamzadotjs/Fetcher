@@ -273,6 +273,7 @@ def main():
                 uptime = "Unknown"
 
     age = get_sys_age()
+    kernel = platform.release()
 
     with open("/sys/class/power_supply/BAT0/capacity") as f:
         bat = int(f.read().strip()) 
@@ -284,6 +285,7 @@ def main():
         f"{orange}{username}{white}@{green}{hostname}{reset}",
         "====================",
         f"{blue}OS:{reset} {os_name}",
+        f"{green}Kernel:{reset} {kernel}"
         f"{cyan}Packages:{reset} {pkg_count}",
         f"{blue}Shell:{reset} {shell}",
         f"{purple}Terminal:{reset} {term}",
@@ -295,20 +297,10 @@ def main():
         f"{purple}Bat:{reset} {bat}% {red}{status}{reset}",
     ]
 
-    # Move cursor up to align with top of logo, then print info beside it
-    # print(f"\033[{len(logo_lines)}A", end="")
-
-    # for i, line in enumerate(info_lines):
-    #    print(f"\033[{offset}G {line}")
-
-    # Pad/move down if logo is taller than info block
-    #diff_lines = len(logo_lines) - len(info_lines)
-    #if diff_lines > 0:
-     #    print(f"\033[{diff_lines}B", end="")
-
     rows = [
-        ("󰻀 OS", os_name, blue),
-        (" hname", hostname, green),
+        (" OS", os_name, blue),
+        (" Kernel", kernel, green),
+        ("󰇄 hname", hostname, purple),
         (" User", username, orange),
         ("󰏖 Pkgs", pkg_count, cyan),
         (" Shell", shell, blue),

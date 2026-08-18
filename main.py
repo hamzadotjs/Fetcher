@@ -273,6 +273,9 @@ def main():
             except:
                 uptime = "Unknown"
 
+    
+    kernel = platform.release()
+
     age = get_sys_age()
     with open("/sys/class/power_supply/BAT0/capacity") as f:
         bat = int(f.read().strip()) 
@@ -283,6 +286,7 @@ def main():
         f"{orange}{username}{white}@{green}{hostname}{reset}",
         "====================",
         f"{blue}OS:{reset} {os_name}",
+        f"{green}Kernel:{reset} {kernel}",
         f"{cyan}Packages:{reset} {pkg_count}",
         f"{blue}Shell:{reset} {shell}",
         f"{purple}Terminal:{reset} {term}",
