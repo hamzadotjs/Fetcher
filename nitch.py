@@ -285,7 +285,7 @@ def main():
         f"{orange}{username}{white}@{green}{hostname}{reset}",
         "====================",
         f"{blue}OS:{reset} {os_name}",
-        f"{green}Kernel:{reset} {kernel}"
+        f"{green}Kernel:{reset} {kernel}",
         f"{cyan}Packages:{reset} {pkg_count}",
         f"{blue}Shell:{reset} {shell}",
         f"{purple}Terminal:{reset} {term}",
